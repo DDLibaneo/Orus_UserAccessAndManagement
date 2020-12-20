@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using Orus_UserAccessAndManagement.Models;
+using Orus_UserAccessAndManagement.ViewModels.Account;
 
 namespace Orus_UserAccessAndManagement.Controllers
 {
