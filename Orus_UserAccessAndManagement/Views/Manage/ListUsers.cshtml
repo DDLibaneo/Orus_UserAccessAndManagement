@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Orus_UserAccessAndManagement.Models.ApplicationUser>
+
+<h2>Gerenciar Usuarios</h2>
+
+<table id="usuarios" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Deletar</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section scripts
+{
+<script>
+    $(document).ready(function () {
+        var table = $("#usuarios").DataTable({
+            ajax: {
+                url: "/Manage/ListUsers",
+                dataSrc: ""
+            },
+            columns: [
+                {
+                    data: "Email"
+                },
+                {
+                    data: "Id",
+                    render: function (data) {
+                        return "<button class='btn-link js-delete' usuario-id=" + data + ">Deletar</button>";
+                    }
+                }
+            ]
+        });
+
+        $("#usuarios").on("click", ".js-delete", function () {
+            var button = $(this);
+
+            bootbox.confirm("Tem certeza que quer deletar este usuário?", function (result) {
+                if (result) {
+                    $.ajax({
+                        url: "/api/UsuarioNewsletter/" + button.attr("usuario-id"),
+                        method: "DELETE",
+                        success: function () {
+                            table.row(button.parents("tr")).remove().draw();
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
+}
