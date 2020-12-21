@@ -22,6 +22,6 @@ No Nuget Package Manager Console digite `enable-migrations`. Depois digite o com
 Rode o projeto DesafioFiap clicando no botão Run do Visual Studio. 
 
 ##### 4. Autenticação
-Para acessar a tela de Administração da Newsletter é necessario fazer login. Use o seguinte usuario admin padrão:
+Para acessar as funcionalidades do projeto é necessario fazer login. Use o seguinte usuario admin padrão:
 - User: admin@gmail.com
 - Senha: 1234567aA!
