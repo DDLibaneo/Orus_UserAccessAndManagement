@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -142,13 +144,45 @@ namespace Orus_UserAccessAndManagement.Controllers
         }
 
         // GET: /Manage/ListUsers
+        [HttpGet]        
+        public ActionResult ListUsers()
+        {
+            return View();
+        }
+
+        // GET: /Manage/GetUsers
         [HttpGet]
         [AllowAnonymous]
-        public async Task<ActionResult> ListUsers()
+        public async Task<JsonResult> GetUsers()
         {
-            var users = _context.Users.ToList();
+            var users = await _context.Users.ToListAsync();
 
-            return View(users);
+            var usersViewModels = new List<UserViewModel>();
+
+            foreach (var user in users)
+            {
+                usersViewModels.Add(new UserViewModel() 
+                {
+                    Email = user.Email,
+                    Id = user.Id
+                });
+            }
+
+            return Json(usersViewModels, JsonRequestBehavior.AllowGet);
+        }
+
+        // DELETE: /Manage/DeleteUser/<id>
+        public async Task<JsonResult> DeleteUser(string id)
+        {
+            var user = await _context.Users.SingleOrDefaultAsync(u => u.Id == id);
+
+            if (user == null)
+                return Json(new { wasDeletedSuccessfully = false });
+
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+
+            return Json(new { wasDeletedSuccessfully = true });
         }
 
         protected override void Dispose(bool disposing)

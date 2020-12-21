@@ -5,7 +5,6 @@
 <table id="usuarios" class="table table-bordered table-hover">
     <thead>
         <tr>
-            <th>Nome</th>
             <th>Email</th>
             <th>Deletar</th>
         </tr>
@@ -19,7 +18,7 @@
     $(document).ready(function () {
         var table = $("#usuarios").DataTable({
             ajax: {
-                url: "/Manage/ListUsers",
+                url: "/Manage/GetUsers",
                 dataSrc: ""
             },
             columns: [
@@ -41,7 +40,7 @@
             bootbox.confirm("Tem certeza que quer deletar este usuário?", function (result) {
                 if (result) {
                     $.ajax({
-                        url: "/api/UsuarioNewsletter/" + button.attr("usuario-id"),
+                        url: "/Manage/DeleteUser/" + button.attr("usuario-id"),
                         method: "DELETE",
                         success: function () {
                             table.row(button.parents("tr")).remove().draw();
