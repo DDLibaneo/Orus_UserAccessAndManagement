@@ -171,7 +171,9 @@ namespace Orus_UserAccessAndManagement.Controllers
             return Json(usersViewModels, JsonRequestBehavior.AllowGet);
         }
 
-        // DELETE: /Manage/DeleteUser/<id>
+        // POST: /Manage/DeleteUser/<id>
+        [HttpPost]
+        [AllowAnonymous]
         public async Task<JsonResult> DeleteUser(string id)
         {
             var user = await _context.Users.SingleOrDefaultAsync(u => u.Id == id);

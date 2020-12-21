@@ -41,9 +41,11 @@
                 if (result) {
                     $.ajax({
                         url: "/Manage/DeleteUser/" + button.attr("usuario-id"),
-                        method: "DELETE",
-                        success: function () {
-                            table.row(button.parents("tr")).remove().draw();
+                        method: "POST",
+                        success: function (resp) {
+                            debugger
+                            if (resp.wasDeletedSuccessfully)
+                                table.row(button.parents("tr")).remove().draw();
                         }
                     });
                 }
